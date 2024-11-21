@@ -1,0 +1,779 @@
+<html><head><base href="." />
+<meta charset="utf-8" />
+<title>Elegant Login Page</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #1a1b3b, #0f2167);
+    overflow: hidden;
+    position: relative;
+}
+
+.kuromi {
+    position: absolute;
+    top: -40px;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    z-index: 2;
+}
+
+.kuromi-ears {
+    position: absolute;
+    width: 25px;
+    height: 35px;
+    background: black;
+    border-radius: 50% 50% 0 0;
+}
+
+.kuromi-ear-left {
+    transform: rotate(-30deg);
+    left: 15px;
+}
+
+.kuromi-ear-right {
+    transform: rotate(30deg);
+    right: 15px;
+}
+
+.kuromi-head {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 50px;
+    background: black;
+    border-radius: 50%;
+}
+
+.kuromi-face {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 30px;
+    background: white;
+    border-radius: 40% 40% 50% 50%;
+}
+
+.kuromi-eye {
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    background: black;
+    border-radius: 50%;
+    top: 8px;
+}
+
+.kuromi-eye.left {
+    left: 8px;
+}
+
+.kuromi-eye.right {
+    right: 8px;
+}
+
+.kuromi-skull {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+}
+
+.kuromi-skull::before,
+.kuromi-skull::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: black;
+    border-radius: 50%;
+    bottom: 5px;
+}
+
+.kuromi-skull::before {
+    left: 5px;
+}
+
+.kuromi-skull::after {
+    right: 5px;
+}
+
+.night-sky {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes snowfall {
+    0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(110vh) translateX(20px) rotate(360deg);
+    }
+}
+
+.snowflake {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: white;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: snowfall linear infinite;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.moon {
+    position: absolute;
+    top: 50px;
+    right: 100px;
+    width: 100px;
+    height: 100px;
+    background: #ffd700;
+    border-radius: 50%;
+    box-shadow: 0 0 50px #ffd700;
+    animation: float 8s ease-in-out infinite;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 2s infinite;
+}
+
+.login-container {
+    background: rgba(255, 192, 203, 0.95);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+    border: 3px solid black;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px dotted black;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.login-container:hover {
+    transform: translateY(-5px);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header h1 {
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Dancing Script', cursive;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 1px;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 1.1rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #000;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+}
+
+.form-group input[type="password"] {
+    color: pink;
+}
+
+.form-group input:focus {
+    border-color: #45b7d1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(69, 183, 209, 0.1);
+}
+
+.form-group label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    font-size: 1rem;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 0.8rem;
+    background: pink;
+    padding: 0 5px;
+    color: #45b7d1;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-button:hover {
+    background: #333;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.forgot-password a {
+    color: #000000;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+/* Tulip Container */
+.tulip {
+    position: absolute;
+    width: 30px;
+    height: 60px;
+    pointer-events: none;
+}
+
+/* Tulip Flower */
+.tulip-flower {
+    position: absolute;
+    top: 0;
+    width: 20px;
+    height: 30px;
+    background: #FF69B4;
+    border-radius: 20px 20px 0 0;
+    transform-origin: bottom center;
+}
+
+.tulip-petal-left {
+    position: absolute;
+    width: 15px;
+    height: 25px;
+    background: #FF69B4;
+    border-radius: 15px 0 0 15px;
+    transform: rotate(-30deg);
+    left: -5px;
+    top: 5px;
+}
+
+.tulip-petal-right {
+    position: absolute;
+    width: 15px;
+    height: 25px;
+    background: #FF69B4;
+    border-radius: 0 15px 15px 0;
+    transform: rotate(30deg);
+    right: -5px;
+    top: 5px;
+}
+
+/* Tulip Stem */
+.tulip-stem {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 35px;
+    background: #4CAF50;
+}
+
+/* Tulip Leaf */
+.tulip-leaf {
+    position: absolute;
+    width: 15px;
+    height: 10px;
+    background: #4CAF50;
+    border-radius: 0 10px 10px 0;
+    top: 35px;
+    right: -12px;
+    transform: rotate(30deg);
+}
+
+/* Position the tulips around the form groups */
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+/* Add these CSS rules for fireworks */
+.firework {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty));
+        opacity: 0;
+    }
+}
+
+.tulip-left {
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.tulip-right {
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Update the cat-container animation */
+.cat-container {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 80px;
+    height: 80px;
+    z-index: 3;
+    transition: opacity 0.5s ease;
+    animation: runAround 15s linear infinite;
+}
+
+/* Add new running animation keyframes */
+@keyframes runAround {
+    0% {
+        left: -100px;
+        bottom: 20px;
+        transform: scaleX(1);
+    }
+    25% {
+        left: calc(100% - 80px);
+        bottom: 20px;
+        transform: scaleX(1);
+    }
+    26% {
+        left: calc(100% - 80px);
+        bottom: 20px;
+        transform: scaleX(-1);
+    }
+    50% {
+        left: -100px;
+        bottom: 20px;
+        transform: scaleX(-1);
+    }
+    51% {
+        left: -100px;
+        bottom: 20px;
+        transform: scaleX(1);
+    }
+    75% {
+        left: -100px;
+        bottom: calc(100% - 100px);
+        transform: scaleX(1);
+    }
+    100% {
+        left: -100px;
+        bottom: 20px;
+        transform: scaleX(1);
+    }
+}
+
+/* Add bouncing animation to the head and body while running */
+.melody-head {
+    animation: bobUpDown 0.5s ease-in-out infinite;
+}
+
+@keyframes bobUpDown {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+/* Make the ears bounce more while running */
+.melody-ear.left {
+    animation: runningEarsLeft 0.5s ease-in-out infinite;
+}
+
+.melody-ear.right {
+    animation: runningEarsRight 0.5s ease-in-out infinite;
+}
+
+@keyframes runningEarsLeft {
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+    50% {
+        transform: rotate(-15deg);
+    }
+}
+
+@keyframes runningEarsRight {
+    0%, 100% {
+        transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+}
+
+/* Make the bow bounce more dramatically while running */
+.melody-bow {
+    animation: runningBow 0.5s ease-in-out infinite;
+}
+
+@keyframes runningBow {
+    0%, 100% {
+        transform: translateX(-50%) rotate(0deg);
+    }
+    50% {
+        transform: translateX(-50%) rotate(5deg);
+    }
+}
+</style>
+</head>
+<body>
+<div class="cat-container" id="cat">
+    <div class="melody-head">
+        <div class="melody-ear left"></div>
+        <div class="melody-ear right"></div>
+        <div class="melody-bow"></div>
+        <div class="melody-face">
+            <div class="melody-eye left"></div>
+            <div class="melody-eye right"></div>
+            <div class="melody-nose"></div>
+        </div>
+    </div>
+</div>
+    <div class="night-sky"></div>
+    <div class="moon"></div>
+    <div class="login-container">
+        <div class="kuromi">
+            <div class="kuromi-ear-left kuromi-ears"></div>
+            <div class="kuromi-ear-right kuromi-ears"></div>
+            <div class="kuromi-head">
+                <div class="kuromi-face">
+                    <div class="kuromi-eye left"></div>
+                    <div class="kuromi-eye right"></div>
+                </div>
+                <div class="kuromi-skull"></div>
+            </div>
+        </div>
+        <div class="login-header">
+            <h1>Welcome Back</h1>
+            <p>Please sign in to continue</p>
+        </div>
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <input type="email" id="email" placeholder=" " required>
+                <label for="email">Email</label>
+                <div class="tulip tulip-left">
+                    <div class="tulip-flower">
+                        <div class="tulip-petal-left"></div>
+                        <div class="tulip-petal-right"></div>
+                    </div>
+                    <div class="tulip-stem"></div>
+                    <div class="tulip-leaf"></div>
+                </div>
+                <div class="tulip tulip-right">
+                    <div class="tulip-flower">
+                        <div class="tulip-petal-left"></div>
+                        <div class="tulip-petal-right"></div>
+                    </div>
+                    <div class="tulip-stem"></div>
+                    <div class="tulip-leaf"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder=" " required>
+                <label for="password">Password</label>
+                <div class="error-message" id="errorMessage"></div>
+                <div class="tulip tulip-left">
+                    <div class="tulip-flower">
+                        <div class="tulip-petal-left"></div>
+                        <div class="tulip-petal-right"></div>
+                    </div>
+                    <div class="tulip-stem"></div>
+                    <div class="tulip-leaf"></div>
+                </div>
+                <div class="tulip tulip-right">
+                    <div class="tulip-flower">
+                        <div class="tulip-petal-left"></div>
+                        <div class="tulip-petal-right"></div>
+                    </div>
+                    <div class="tulip-stem"></div>
+                    <div class="tulip-leaf"></div>
+                </div>
+            </div>
+            <button type="submit" class="login-button">Sign In</button>
+            <div class="forgot-password">
+                <a href="https://example.com/reset-password">Forgot Password?</a>
+            </div>
+        </form>
+    </div>
+
+<script>
+function handleLogin(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const errorMessage = document.getElementById('errorMessage');
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showError('Please enter a valid email address');
+        return false;
+    }
+    
+    if (password.length < 6) {
+        showError('Password must be at least 6 characters long');
+        return false;
+    }
+    
+    simulateLogin(email, password);
+    return false;
+}
+
+function showError(message) {
+    const errorMessage = document.getElementById('errorMessage');
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+    
+    setTimeout(() => {
+        errorMessage.style.display = 'none';
+    }, 3000);
+}
+
+function createFirework(x, y) {
+    const firework = document.createElement('div');
+    firework.className = 'firework';
+    firework.style.left = x + 'px';
+    firework.style.top = y + 'px';
+    
+    // Create particles
+    const colors = ['#ff0000', '#ffd700', '#ff69b4', '#00ff00', '#ff1493', '#00ffff'];
+    const particleCount = 30;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random angle and distance
+        const angle = (i / particleCount) * 360;
+        const distance = Math.random() * 100 + 50;
+        
+        // Calculate end position
+        const tx = Math.cos(angle * Math.PI / 180) * distance;
+        const ty = Math.sin(angle * Math.PI / 180) * distance;
+        
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.setProperty('--tx', `${tx}px`);
+        particle.style.setProperty('--ty', `${ty}px`);
+        
+        firework.appendChild(particle);
+    }
+    
+    document.body.appendChild(firework);
+    
+    // Remove firework after animation
+    setTimeout(() => {
+        firework.remove();
+    }, 1000);
+}
+
+function simulateLogin(email, password) {
+    const loginButton = document.querySelector('.login-button');
+    const cat = document.getElementById('cat');
+    
+    loginButton.textContent = 'Signing in...';
+    loginButton.disabled = true;
+    
+    // Make the cat disappear
+    cat.style.opacity = '0';
+    
+    // Create multiple fireworks
+    for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            createFirework(x, y);
+        }, i * 200);
+    }
+    
+    setTimeout(() => {
+        window.location.href = 'https://example.com/dashboard';
+        loginButton.textContent = 'Sign In';
+        loginButton.disabled = false;
+        // If the login fails, make the cat reappear
+        cat.style.opacity = '1';
+    }, 2000);
+}
+
+document.querySelectorAll('.form-group input').forEach(input => {
+    input.addEventListener('focus', (e) => {
+        e.target.parentElement.classList.add('focused');
+    });
+    
+    input.addEventListener('blur', (e) => {
+        if (!e.target.value) {
+            e.target.parentElement.classList.remove('focused');
+        }
+    });
+});
+
+function createStars() {
+    const nightSky = document.querySelector('.night-sky');
+    for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 3 + 'px';
+        star.style.height = star.style.width;
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 2 + 's';
+        nightSky.appendChild(star);
+    }
+}
+
+function createSnowflakes() {
+    setInterval(() => {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        
+        // Random starting position
+        snowflake.style.left = Math.random() * 100 + '%';
+        
+        // Random size between 5px and 10px
+        const size = Math.random() * 5 + 5;
+        snowflake.style.width = size + 'px';
+        snowflake.style.height = size + 'px';
+        
+        // Random duration between 5s and 10s
+        const duration = Math.random() * 5 + 5;
+        snowflake.style.animationDuration = duration + 's';
+        
+        document.body.appendChild(snowflake);
+        
+        // Remove snowflake after animation completes
+        setTimeout(() => {
+            snowflake.remove();
+        }, duration * 1000);
+    }, 200); // Create new snowflake every 200ms
+}
+
+// Modify window.onload to include both stars and snowflakes
+window.onload = () => {
+    createStars();
+    createSnowflakes();
+};
+</script>
+</body></html>
